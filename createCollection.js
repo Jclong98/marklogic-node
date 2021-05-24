@@ -8,15 +8,9 @@ import dotenv from 'dotenv'
 dotenv.config()
 
 import marklogic from 'marklogic'
+import connInfo from './connectionInfo'
 
-
-const db = marklogic.createDatabaseClient({
-    host: '192.168.0.3',
-    port: 8010,
-    user: "admin",
-    password: "admin",
-    authType: 'basic'
-})
+const db = marklogic.createDatabaseClient(connInfo)
 
 
 const usersPath = path.join(__dirname, 'data/users.json')

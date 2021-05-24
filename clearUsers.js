@@ -1,20 +1,6 @@
-import fs from 'fs'
+import connInfo from './connectionInfo'
 
-import axios from 'axios'
-import dotenv from 'dotenv'
-dotenv.config()
-
-import marklogic from 'marklogic'
-
-
-const db = marklogic.createDatabaseClient({
-    host: '192.168.0.3',
-    port: 8010,
-    user: "admin",
-    password: "admin",
-    authType: 'basic'
-})
-
+const db = marklogic.createDatabaseClient(connInfo)
 
 const results = await db.removeCollection('users').result()
 console.log(results)

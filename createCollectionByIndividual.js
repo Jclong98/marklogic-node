@@ -8,13 +8,14 @@ import dotenv from 'dotenv'
 dotenv.config()
 
 import marklogic from 'marklogic'
-import connInfo from './connectionInfo'
+import connInfo from './connectionInfo.js'
 
 const db = marklogic.createDatabaseClient(connInfo)
 
 const usersPath = path.join(__dirname, 'data/users.json')
 const users = JSON.parse(fs.readFileSync(usersPath))
 
+// making a document descriptor for each document inserted
 const userDocs = users.map(user => {
     return {
         uri: `/users/${user.id}.json`,

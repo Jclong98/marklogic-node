@@ -1,6 +1,6 @@
 import express from 'express'
 import marklogic from 'marklogic'
-import connInfo from './connectionInfo'
+import connInfo from './connectionInfo.js'
 
 const db = marklogic.createDatabaseClient(connInfo)
 const qb = marklogic.queryBuilder

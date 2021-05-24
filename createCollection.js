@@ -8,7 +8,7 @@ import dotenv from 'dotenv'
 dotenv.config()
 
 import marklogic from 'marklogic'
-import connInfo from './connectionInfo'
+import connInfo from './connectionInfo.js'
 
 const db = marklogic.createDatabaseClient(connInfo)
 

@@ -13,6 +13,9 @@ const baseURL = `http://${process.env.MARKLOGIC_HOST}:8002`
 const restConfigPath = path.join(__dirname, '01-rest-instance-config.json')
 const restConfig = JSON.parse(fs.readFileSync(restConfigPath))
 
+const dbConfigPath = path.join(__dirname, '02-database-config.json')
+const dbConfig = JSON.parse(fs.readFileSync(dbConfigPath))
+
 async function setup() {
 
     // check that the rest api for the database exists
@@ -34,15 +37,33 @@ async function setup() {
         return
     }
 
-
-    const postResponse = await axios.post(`${baseURL}/v1/rest-apis`, restConfig, {
-        auth: {
-            username: process.env.MARKLOGIC_ADMIN_USERNAME,
-            password: process.env.MARKLOGIC_ADMIN_PASSWORD,
+    // creating rest instance
+    const postResponse = await axios.post(
+        `${baseURL}/v1/rest-apis`,
+        restConfig,
+        {
+            auth: {
+                username: process.env.MARKLOGIC_ADMIN_USERNAME,
+                password: process.env.MARKLOGIC_ADMIN_PASSWORD,
+            }
         }
-    }).catch(err => err.response)
+    ).catch(err => err.response)
 
     console.log(postResponse.data)
+
+    // configuring database
+    const putResponse = await axios.put(
+        `${baseURL}/manage/v2/databases/testdb-content/properties`,
+        dbConfig,
+        {
+            auth: {
+                username: process.env.MARKLOGIC_ADMIN_USERNAME,
+                password: process.env.MARKLOGIC_ADMIN_PASSWORD,
+            }
+        }
+    ).catch(err => err.response)
+
+    console.log(putResponse.data)
 
 }
 

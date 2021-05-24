@@ -14,13 +14,13 @@ app.get('/', (req, res) => {
 })
 
 app.get('/users', (req, res) => {
-    db.documents.query(
+    const results = db.documents.query(
         qb.where(
             qb.collection('users'),
         )
-    ).result(results => {
-        res.json(results)
-    });
+    ).result()
+
+    res.json(results)
 })
 
 app.get('/users/:id', async (req, res) => {

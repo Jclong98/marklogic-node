@@ -1,3 +1,4 @@
+import marklogic from 'marklogic'
 import connInfo from './connectionInfo.js'
 
 const db = marklogic.createDatabaseClient(connInfo)

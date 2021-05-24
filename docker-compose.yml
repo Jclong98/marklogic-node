@@ -1,0 +1,11 @@
+version: '3'
+
+services: 
+    marklogic: 
+        image: store/marklogicdb/marklogic-server:10.0-6.2-dev-centos
+        ports: 
+            - 7997-8010:7997-8010
+        environment: 
+            - "MARKLOGIC_INIT=true"
+            - "MARKLOGIC_ADMIN_USERNAME=admin"
+            - "MARKLOGIC_ADMIN_PASSWORD=admin"

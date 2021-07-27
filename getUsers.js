@@ -6,18 +6,18 @@ const qb = marklogic.queryBuilder;
 
 // pagination variables
 const page = 1
-const limit = 1000
+const limit = 10
 const startIndex = (page - 1) * limit
 const endIndex = page * limit
 
 const orderBy = 'id'
-// const direction = 'ascending'
-const direction = 'descending'
+const direction = 'ascending'
+// const direction = 'descending'
 
 const query = qb.where(
     qb.and(
         qb.collection('users'),
-        qb.range('id', '>', 990)
+        qb.value("email", "*@4shared.com", ['wildcarded'])
     )
 )
 

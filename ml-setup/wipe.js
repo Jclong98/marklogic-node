@@ -8,10 +8,9 @@ import axios from 'axios'
 import dotenv from 'dotenv'
 dotenv.config()
 
-const baseURL = `http://${process.env.MARKLOGIC_HOST}:8002`
+import restConfig from './setup-data/01-rest-instance-config.js'
 
-const restConfigPath = path.join(__dirname, '01-rest-instance-config.json')
-const restConfig = JSON.parse(fs.readFileSync(restConfigPath))
+const baseURL = `http://${process.env.MARKLOGIC_HOST}:8002`
 
 async function wipe() {
 

@@ -1,16 +1,8 @@
-import fs from 'fs'
-import path from 'path';
-import { fileURLToPath } from 'url';
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
 import marklogic from 'marklogic'
 import connInfo from './connectionInfo.js'
+import users from './data/users.js'
 
 const db = marklogic.createDatabaseClient(connInfo)
-
-const usersPath = path.join(__dirname, 'data/users.json')
-const users = JSON.parse(fs.readFileSync(usersPath))
 
 // you could do it this way, but it gives less control
 // no multiple collections, no custom uri paths

@@ -9,9 +9,9 @@ const baseURL = `http://${process.env.MARKLOGIC_HOST}:8002`
 
 async function setup() {
 
-    // check that the rest api for the database exists
-    const response = await axios
-        .get(
+    // check that the rest api for marklogic exists
+    try {
+        await axios.get(
             `${baseURL}/v1/rest-apis/`,
             {
                 auth: {
@@ -20,41 +20,54 @@ async function setup() {
                 }
             }
         )
-        .catch(err => err.response)
-
-    if ("errorResponse" in response.data) {
-        console.error(response.data)
+    }
+    catch (error) {
+        console.log(error.response)
+        console.log('Cannot Connect to Marklogic.')
         return
     }
 
     // creating rest instance
-    const postResponse = await axios.post(
-        `${baseURL}/v1/rest-apis`,
-        restConfig,
-        {
-            auth: {
-                username: process.env.MARKLOGIC_ADMIN_USERNAME,
-                password: process.env.MARKLOGIC_ADMIN_PASSWORD,
-            }
-        }
-    ).catch(err => err.response)
+    try {
 
-    console.log(postResponse.data)
+        const postResponse = await axios.post(
+            `${baseURL}/v1/rest-apis`,
+            restConfig,
+            {
+                auth: {
+                    username: process.env.MARKLOGIC_ADMIN_USERNAME,
+                    password: process.env.MARKLOGIC_ADMIN_PASSWORD,
+                }
+            }
+        )
+        console.log(postResponse.data)
+    }
+    catch (error) {
+        console.log(error.response)
+        console.log('Cannot create rest instance.')
+        return
+    }
 
     // configuring database
-    const putResponse = await axios.put(
-        `${baseURL}/manage/v2/databases/testdb-content/properties`,
-        dbConfig,
-        {
-            auth: {
-                username: process.env.MARKLOGIC_ADMIN_USERNAME,
-                password: process.env.MARKLOGIC_ADMIN_PASSWORD,
+    try {
+        const putResponse = await axios.put(
+            `${baseURL}/manage/v2/databases/testdb-content/properties`,
+            dbConfig,
+            {
+                auth: {
+                    username: process.env.MARKLOGIC_ADMIN_USERNAME,
+                    password: process.env.MARKLOGIC_ADMIN_PASSWORD,
+                }
             }
-        }
-    ).catch(err => err.response)
+        )
 
-    console.log(putResponse.data)
-
+        console.log(putResponse.data)
+    }
+    catch (error) {
+        console.log(error.response)
+        console.log('Cannot configure database.')
+        return
+    }
 }
 
 setup()

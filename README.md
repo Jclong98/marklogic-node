@@ -21,4 +21,3 @@ This collection has indexes on the following properties:
 ## Clear your marklogic instance
 
 If you've already got a marklogic test-db setup and want to clear it out, run `npm run wipe`.
-g

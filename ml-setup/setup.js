@@ -22,7 +22,7 @@ async function setup() {
         )
     }
     catch (error) {
-        console.log(error.response)
+        console.log(error.response.data)
         console.log('Cannot Connect to Marklogic.')
         return
     }
@@ -43,8 +43,7 @@ async function setup() {
         console.log(postResponse.data)
     }
     catch (error) {
-        console.log(error.response)
-        console.log('Cannot create rest instance.')
+        console.log(error.response.data)
         return
     }
 
@@ -64,8 +63,7 @@ async function setup() {
         console.log(putResponse.data)
     }
     catch (error) {
-        console.log(error.response)
-        console.log('Cannot configure database.')
+        console.log(error.response.data)
         return
     }
 }
